@@ -13,6 +13,7 @@ import 'package:soleoserp/ui/widgets/common_widgets.dart';
 import 'package:soleoserp/utils/general_utils.dart';
 import 'package:soleoserp/utils/shared_pref_helper.dart';
 
+//Added
 class HomeScreen extends BaseStatefulWidget {
   static const routeName = '/HomeScreen';
 
