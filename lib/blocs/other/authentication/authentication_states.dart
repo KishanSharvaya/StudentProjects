@@ -8,14 +8,14 @@ abstract class AuthenticationStates extends BaseStates {
 
 class AuthenticationInitialState extends AuthenticationStates {}
 
-class RegistrationResponseState extends AuthenticationStates {
-  //declare and pass request as below
-  RegistrationResponse response;
-  RegistrationResponseState(this.response);
+class ComapnyDetailsResponseState extends AuthenticationStates {
+  final CompanyDetailsResponse companyDetailsResponse;
+
+  ComapnyDetailsResponseState(this.companyDetailsResponse);
 }
 
-class LoginResponseState extends AuthenticationStates {
+class LoginUserDetialsResponseState extends AuthenticationStates {
   //declare and pass request as below
-  LoginResponse response;
-  LoginResponseState(this.response);
+  LoginUserDetialsResponse response;
+  LoginUserDetialsResponseState(this.response);
 }

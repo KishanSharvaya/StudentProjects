@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:soleoserp/models/api_response/login/login_response.dart';
-import 'package:soleoserp/models/api_response/registraion/registration_response.dart';
+import 'package:soleoserp/models/api_response/company_details/company_details_response.dart';
+import 'package:soleoserp/models/api_response/login/login_user_details_api_response.dart';
 
 class SharedPrefHelper {
   final SharedPreferences prefs;
@@ -74,15 +74,6 @@ class SharedPrefHelper {
     return getBool(IS_LOGGED_IN_DATA) ?? false;
   }
 
-  setCompanyData(RegistrationResponse data) async {
-    await putString(IS_COMPANY_LOGGED_IN_DATA, json.encode(data));
-  }
-
-  RegistrationResponse getCompanyData() {
-    return RegistrationResponse.fromJson(
-        json.decode(getString(IS_COMPANY_LOGGED_IN_DATA)));
-  }
-
   bool isLogIn() {
     return getBool(IS_LOGGED_IN_DATA) ?? false;
   }
@@ -91,12 +82,21 @@ class SharedPrefHelper {
     return getBool(IS_REGISTERED) ?? false;
   }
 
-  setLoginUserData(LoginResponse data) async {
+  CompanyDetailsResponse getCompanyData() {
+    return CompanyDetailsResponse.fromJson(
+        json.decode(getString(IS_COMPANY_LOGGED_IN_DATA)));
+  }
+
+  setCompanyData(CompanyDetailsResponse data) async {
+    await putString(IS_COMPANY_LOGGED_IN_DATA, json.encode(data));
+  }
+
+  setLoginUserData(LoginUserDetialsResponse data) async {
     await putString(IS_LOGGED_IN_USER_DATA, json.encode(data));
   }
 
-  LoginResponse getLoginUserData() {
-    return LoginResponse.fromJson(
+  LoginUserDetialsResponse getLoginUserData() {
+    return LoginUserDetialsResponse.fromJson(
         json.decode(getString(IS_LOGGED_IN_USER_DATA)));
   }
 }

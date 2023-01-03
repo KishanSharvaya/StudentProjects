@@ -1,14 +1,14 @@
-class RegistrationResponse {
-  List<RegistrationResponseDetails> details;
+class CompanyDetailsResponse {
+  List<CompanyProfile> details;
   int totalCount;
 
-  RegistrationResponse({this.details, this.totalCount});
+  CompanyDetailsResponse({this.details, this.totalCount});
 
-  RegistrationResponse.fromJson(Map<String, dynamic> json) {
+  CompanyDetailsResponse.fromJson(Map<String, dynamic> json) {
     if (json['details'] != null) {
       details = [];
       json['details'].forEach((v) {
-        details.add(new RegistrationResponseDetails.fromJson(v));
+        details.add(new CompanyProfile.fromJson(v));
       });
     }
     totalCount = json['TotalCount'];
@@ -24,7 +24,7 @@ class RegistrationResponse {
   }
 }
 
-class RegistrationResponseDetails {
+class CompanyProfile {
   int pkId;
   String companyName;
   String siteURL;
@@ -36,7 +36,7 @@ class RegistrationResponseDetails {
   String IOSApp;
   String MapApiKey;
 
-  RegistrationResponseDetails(
+  CompanyProfile(
       {this.pkId,
       this.companyName,
       this.siteURL,
@@ -48,7 +48,7 @@ class RegistrationResponseDetails {
       this.IOSApp,
       this.MapApiKey});
 
-  RegistrationResponseDetails.fromJson(Map<String, dynamic> json) {
+  CompanyProfile.fromJson(Map<String, dynamic> json) {
     pkId = json['pkId'] == null ? 0 : json['pkId'];
     companyName = json['CompanyName'] == null ? "" : json['CompanyName'];
     siteURL = json['SiteURL'] == null ? "" : json['SiteURL'];

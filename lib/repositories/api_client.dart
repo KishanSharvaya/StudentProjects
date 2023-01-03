@@ -52,6 +52,16 @@ CartFlutterLive     : [BaseURL(API)]:	http://208.109.14.134:86/ [WebURL]:http://
 
   /// end point of login User Details
   static const END_POINT_LOGIN = 'Login/';
+  static const END_POINT_CUSTOMER_PAGINATION = 'Customer';
+  static const END_POINT_CUSTOMER_SEARCH_BY_ID = 'Customer/';
+  static const END_POINT_CUSTOMER_SEARCH = 'Customer/Search';
+  static const END_POINT_CUSTOMER_CATEGORY = 'Customer/CategoryList';
+  static const END_POINT_COUNTRYLIST = 'Country/List';
+  static const END_POINT_STATELIST = 'Customer/States/Search';
+  static const END_POINT_CITY_LIST = "Customer/Cities/Search";
+  static const END_POINT_CUSTOMER_ADD_EDIT = "Customer/";
+  static const END_POINT_CUSTOMER_DELETE = "Customer/";
+  static const END_POINT_CUSTOMER_SOURCE = 'Customer/Source';
 
   //DailyAttendanceMode/0/Save
   final http.Client httpClient;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soleoserp/blocs/other/authentication/authentication_bloc.dart';
 import 'package:soleoserp/models/api_request/registraion/registration_request.dart';
-import 'package:soleoserp/models/api_response/registraion/registration_response.dart';
+import 'package:soleoserp/models/api_response/company_details/company_details_response.dart';
 import 'package:soleoserp/ui/res/color_resources.dart';
 import 'package:soleoserp/ui/res/dimen_resources.dart';
 import 'package:soleoserp/ui/screens/authentication/login_screen.dart';
@@ -50,13 +50,13 @@ class _RegistrationScreenState extends BaseState<RegistrationScreen>
         },
         listener: (BuildContext context, AuthenticationStates state) {
           //handle states
-          if (state is RegistrationResponseState) {
-            _onRegstrationApiResponse(state.response);
+          if (state is ComapnyDetailsResponseState) {
+            _onRegstrationApiResponse(state.companyDetailsResponse);
           }
         },
         listenWhen: (oldState, currentState) {
           //return true for state for which listener method should be called
-          if (currentState is RegistrationResponseState) {
+          if (currentState is ComapnyDetailsResponseState) {
             return true;
           }
           return false;
@@ -246,7 +246,7 @@ class _RegistrationScreenState extends BaseState<RegistrationScreen>
     //TODO
   }
 
-  void _onRegstrationApiResponse(RegistrationResponse response) {
+  void _onRegstrationApiResponse(CompanyDetailsResponse response) {
     if (response.details.length != 0) {
       SharedPrefHelper.instance.setCompanyData(response);
       SharedPrefHelper.instance.putBool(SharedPrefHelper.IS_REGISTERED, true);

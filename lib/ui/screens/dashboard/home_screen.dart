@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shine/flutter_shine.dart';
 import 'package:soleoserp/blocs/other/authentication/authentication_bloc.dart';
-import 'package:soleoserp/models/api_response/login/login_response.dart';
-import 'package:soleoserp/models/api_response/registraion/registration_response.dart';
+import 'package:soleoserp/models/api_response/company_details/company_details_response.dart';
+import 'package:soleoserp/models/api_response/login/login_user_details_api_response.dart';
 import 'package:soleoserp/ui/res/color_resources.dart';
 import 'package:soleoserp/ui/screens/authentication/login_screen.dart';
 import 'package:soleoserp/ui/screens/base/base_screen.dart';
+import 'package:soleoserp/ui/screens/dashboard/Customer/customer_list_screen.dart';
 import 'package:soleoserp/ui/widgets/common_widgets.dart';
 import 'package:soleoserp/utils/general_utils.dart';
 import 'package:soleoserp/utils/shared_pref_helper.dart';
@@ -24,10 +25,10 @@ class HomeScreen extends BaseStatefulWidget {
 class _HomeScreenState extends BaseState<HomeScreen>
     with BasicScreen, WidgetsBindingObserver {
   AuthenticationBloc _authenticationBloc;
-  RegistrationResponse _offlineCompanyData;
+  CompanyDetailsResponse _offlineCompanyData;
   int CompanyID = 0;
   bool _isObscure = true;
-  LoginResponse _offlineLoggedInData;
+  LoginUserDetialsResponse _offlineLoggedInData;
 
   @override
   void initState() {
@@ -154,14 +155,20 @@ class _HomeScreenState extends BaseState<HomeScreen>
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Column(
-                        children: [
-                          Icon(
-                            Icons.people,
-                            size: 42,
-                          ),
-                          Text("Customer")
-                        ],
+                      InkWell(
+                        onTap: () {
+                          navigateTo(context, CustomerListScreen.routeName,
+                              clearAllStack: true);
+                        },
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.people,
+                              size: 42,
+                            ),
+                            Text("Customer")
+                          ],
+                        ),
                       ),
                       Column(
                         children: [

@@ -39,6 +39,7 @@ dependencies:
   platform: ^3.1.0
   html:
   flutter_shine: ^0.0.5
+  expansion_tile_card:
 
 
   # The following adds the Cupertino Icons font to your application.

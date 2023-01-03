@@ -1,14 +1,14 @@
-class LoginResponse {
-  List<LoginResponseDetails> details;
+class LoginUserDetialsResponse {
+  List<LoginUserDetails> details;
   int totalCount;
 
-  LoginResponse({this.details, this.totalCount});
+  LoginUserDetialsResponse({this.details, this.totalCount});
 
-  LoginResponse.fromJson(Map<String, dynamic> json) {
+  LoginUserDetialsResponse.fromJson(Map<String, dynamic> json) {
     if (json['details'] != null) {
       details = [];
       json['details'].forEach((v) {
-        details.add(new LoginResponseDetails.fromJson(v));
+        details.add(new LoginUserDetails.fromJson(v));
       });
     }
     totalCount = json['TotalCount'];
@@ -24,7 +24,7 @@ class LoginResponse {
   }
 }
 
-class LoginResponseDetails {
+class LoginUserDetails {
   int pkID;
   String userID;
   String userPassword;
@@ -49,7 +49,8 @@ class LoginResponseDetails {
   String CityName;
   String EmployeeImage;
 
-  LoginResponseDetails(
+
+  LoginUserDetails(
       {this.pkID,
       this.userID,
       this.userPassword,
@@ -69,12 +70,13 @@ class LoginResponseDetails {
       this.employeeID,
       this.employeeName,
       this.activeFlagDesc,
-      this.StateName,
-      this.CityCode,
-      this.CityName,
-      this.EmployeeImage});
+  this.StateName,
+  this.CityCode,
+  this.CityName,
+  this.EmployeeImage
+      });
 
-  LoginResponseDetails.fromJson(Map<String, dynamic> json) {
+  LoginUserDetails.fromJson(Map<String, dynamic> json) {
     pkID = json['pkID'];
     userID = json['UserID'];
     userPassword = json['UserPassword'];
@@ -124,7 +126,7 @@ class LoginResponseDetails {
     data['StateName'] = this.StateName;
     data['CityCode'] = this.CityCode;
     data['CityName'] = this.CityName;
-    data['EmployeeImage'] = this.EmployeeImage;
+    data['EmployeeImage']=this.EmployeeImage;
     return data;
   }
 }

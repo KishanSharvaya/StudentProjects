@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-const colorPrimary = const Color(0xff2B4124);
-const colorPrimaryDark = const Color(0xff2B4124);
-const colorPrimaryLight = const Color(0xff2D9835);
-const colorAccent = const Color(0xffF3E9B5);
-
+const colorPrimary = const Color(0xff0066b3);
+//const colorPrimary = const Color(0xff0969da);//0969DA
+const colorPrimaryDark = const Color(0xff0066b3);
+const colorPrimaryLight = const Color(/*0xFFF89269*/ 0xff0066b3);
+const colorAccent = const Color(0xff000000);
 
 const colorAppBar = const Color(0xff000000);
 const colorBlack = const Color(0xff000000);
@@ -15,12 +15,16 @@ const colorWhite = const Color(0xffffffff);
 const colorGray = const Color(0xffC4C4C4);
 const colorLightGray = const Color(0xffE0E0E0);
 const colorVeryLightGray = const Color(0xffffffff);
+const colorBackGroundGray = const Color(0xfff9f9f9);
+
+//F9F9F9
 const colorGrayDark = const Color(0xff6C777C);
 const colorGrayVeryDark2 = const Color(0xff4f4f4f);
 const colorGrayVeryDark = const Color(0xff707070);
 const colorCaptionGray = const Color(0xffbdbdbd);
 const colorMediumGray = const Color(0xff828282);
 const colorOrange = const Color(0xffEA7813);
+const colorRedLight = const Color(0xffeb5757);
 const colorDarkYellow = const Color(0xff957b00);
 const colorDarkBlue = const Color(0xff283060);
 const colorWhiteMix = const Color(0xfff4f5f9);
@@ -39,6 +43,21 @@ const colorOrangeLight = const Color(0xfffcf7de);
 const colorLightYellow = const Color(0xfffff8d9);
 const colorTextTitleGray = const Color(0xff7F8082);
 const colorDarkGray = const Color(0xff4F4F4F);
+const colorPresentDay = const Color(0xff26d9b6);
+const colorHalfDay = const Color(0xffF5CB49);
+const colorAbsentfDay = const Color(0xff2196f3); //Color(0xffBF0C0C);
+const colorfullDay = const Color(0xff26d9b6);
+const colorgreenforicon = const Color(0xffafd034);
+const colorPink = const Color(0xFFE7C6FF);
+const colorRED = const Color(0xFFE02C2C);
+
+/// For Listing Tiles
+
+const colorTileBG = const Color(0xFFD6E7E5);
+const colorCardBG = const Color(0xFFABC48D); //
+const colorVeryLightCardBG = const Color(0xFFE9EDFA); //
+
+//D9E6E5
 
 const Map<int, Color> materialColorAccentCodes = {
   50: Color.fromRGBO(255, 255, 255, 1),
@@ -52,3 +71,5 @@ const Map<int, Color> materialColorAccentCodes = {
   800: Color.fromRGBO(255, 255, 255, 1),
   900: Color.fromRGBO(255, 255, 255, 1),
 };
+
+///New Flutter Live Commit

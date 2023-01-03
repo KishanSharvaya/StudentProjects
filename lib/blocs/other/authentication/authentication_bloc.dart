@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soleoserp/blocs/base/base_bloc.dart';
 import 'package:soleoserp/models/api_request/login/login_request.dart';
 import 'package:soleoserp/models/api_request/registraion/registration_request.dart';
-import 'package:soleoserp/models/api_response/login/login_response.dart';
-import 'package:soleoserp/models/api_response/registraion/registration_response.dart';
+import 'package:soleoserp/models/api_response/company_details/company_details_response.dart';
+import 'package:soleoserp/models/api_response/login/login_user_details_api_response.dart';
 import 'package:soleoserp/repositories/repository.dart';
 
 part 'authentication_events.dart';
@@ -38,9 +38,9 @@ class AuthenticationBloc
       baseBloc.emit(ShowProgressIndicatorState(true));
 
       //call your api as follows
-      RegistrationResponse companyDetailsResponse =
+      CompanyDetailsResponse companyDetailsResponse =
           await userRepository.getRegistrationDetailsApi(event.request);
-      yield RegistrationResponseState(companyDetailsResponse);
+      yield ComapnyDetailsResponseState(companyDetailsResponse);
     } catch (error, stacktrace) {
       baseBloc.emit(ApiCallFailureState(error));
       print(stacktrace);
@@ -56,9 +56,9 @@ class AuthenticationBloc
       baseBloc.emit(ShowProgressIndicatorState(true));
 
       //call your api as follows
-      LoginResponse companyDetailsResponse =
+      LoginUserDetialsResponse companyDetailsResponse =
           await userRepository.getLoginDetailsApi(event.request);
-      yield LoginResponseState(companyDetailsResponse);
+      yield LoginUserDetialsResponseState(companyDetailsResponse);
     } catch (error, stacktrace) {
       baseBloc.emit(ApiCallFailureState(error));
       print(stacktrace);

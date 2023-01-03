@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soleoserp/blocs/other/authentication/authentication_bloc.dart';
 import 'package:soleoserp/models/api_request/login/login_request.dart';
-import 'package:soleoserp/models/api_response/login/login_response.dart';
-import 'package:soleoserp/models/api_response/registraion/registration_response.dart';
+import 'package:soleoserp/models/api_response/company_details/company_details_response.dart';
+import 'package:soleoserp/models/api_response/login/login_user_details_api_response.dart';
 import 'package:soleoserp/ui/res/dimen_resources.dart';
 import 'package:soleoserp/ui/screens/authentication/registration_screen.dart';
 import 'package:soleoserp/ui/screens/base/base_screen.dart';
@@ -22,7 +22,7 @@ class LoginScreen extends BaseStatefulWidget {
 class _LoginScreenState extends BaseState<LoginScreen>
     with BasicScreen, WidgetsBindingObserver {
   AuthenticationBloc _authenticationBloc;
-  RegistrationResponse _offlineCompanyData;
+  CompanyDetailsResponse _offlineCompanyData;
   int CompanyID = 0;
   bool _isObscure = true;
 
@@ -47,14 +47,14 @@ class _LoginScreenState extends BaseState<LoginScreen>
       child: BlocConsumer<AuthenticationBloc, AuthenticationStates>(
         builder: (BuildContext context, AuthenticationStates state) {
           //handle states
-          if (state is LoginResponseState) {
+          if (state is LoginUserDetialsResponseState) {
             _onLoginAPiResponse(state.response);
           }
           return super.build(context);
         },
         buildWhen: (oldState, currentState) {
           //return true for state for which builder method should be called
-          if (currentState is LoginResponseState) {
+          if (currentState is LoginUserDetialsResponseState) {
             return true;
           }
           return false;
@@ -276,7 +276,7 @@ class _LoginScreenState extends BaseState<LoginScreen>
     // navigateTo(context, RegisterScreen.routeName, clearAllStack: true);
   }
 
-  void _onLoginAPiResponse(LoginResponse response) {
+  void _onLoginAPiResponse(LoginUserDetialsResponse response) {
     print("LoginResponse" +
         "Api Response EmployeeNAme : " +
         response.details[0].employeeName);
