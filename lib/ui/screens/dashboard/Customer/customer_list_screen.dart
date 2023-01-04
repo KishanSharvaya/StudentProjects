@@ -2,13 +2,17 @@ import 'package:expansion_tile_card/expansion_tile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soleoserp/blocs/other/customer/customer_bloc.dart';
+import 'package:soleoserp/models/api_request/customer/customer_delete_request.dart';
 import 'package:soleoserp/models/api_request/customer/customer_paggination_request.dart';
+import 'package:soleoserp/models/api_request/customer/customer_search_by_id_request.dart';
 import 'package:soleoserp/models/api_response/company_details/company_details_response.dart';
 import 'package:soleoserp/models/api_response/customer/customer_details_api_response.dart';
 import 'package:soleoserp/models/api_response/customer/customer_label_value_response.dart';
 import 'package:soleoserp/models/api_response/login/login_user_details_api_response.dart';
 import 'package:soleoserp/ui/res/color_resources.dart';
 import 'package:soleoserp/ui/screens/base/base_screen.dart';
+import 'package:soleoserp/ui/screens/dashboard/Customer/CustomerAdd_Edit/customer_add_edit.dart';
+import 'package:soleoserp/ui/screens/dashboard/Customer/search_customer_screen.dart';
 import 'package:soleoserp/ui/screens/dashboard/home_screen.dart';
 import 'package:soleoserp/utils/general_utils.dart';
 import 'package:soleoserp/utils/offline_db_helper.dart';
@@ -198,8 +202,7 @@ class _CustomerListScreenState extends BaseState<CustomerListScreen>
           children: [
             FloatingActionButton(
               onPressed: () async {
-                await _onTapOfDeleteALLContact();
-                //  navigateTo(context, Customer_ADD_EDIT.routeName);
+                navigateTo(context, Customer_ADD_EDIT.routeName);
               },
               child: Icon(Icons.add),
               backgroundColor: colorPrimary,
@@ -221,21 +224,6 @@ class _CustomerListScreenState extends BaseState<CustomerListScreen>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /* Container(
-            margin: EdgeInsets.only(left: 10, right: 10),
-            padding: EdgeInsets.only(left: 5, right: 20),
-            child: Text("Search Customer",
-                style: TextStyle(
-                    fontSize: 12,
-                    color: colorBlack,
-                    fontWeight: FontWeight
-                        .bold) // baseTheme.textTheme.headline2.copyWith(color: colorBlack),
-
-                ),
-          ),
-          SizedBox(
-            height: 3,
-          ),*/
           Card(
             elevation: 5,
             color: Colors.white,
@@ -249,20 +237,6 @@ class _CustomerListScreenState extends BaseState<CustomerListScreen>
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  /*Icon(
-                    Icons.perm_contact_cal_rounded,
-                    color: colorGrayDark,
-                  ),*/
-                  /* CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Image.network(
-                        "http://demo.sharvayainfotech.in/images/profile.png",
-                        height: 30,
-                        fit: BoxFit.fill,
-                        width: 30,
-                      )),
-                  Spacer(),
-                  Spacer(),*/
                   Text(
                     _searchDetails == null
                         ? "Tap to search customer"
@@ -362,16 +336,8 @@ class _CustomerListScreenState extends BaseState<CustomerListScreen>
           shadowColor: Color(0xFF504F4F),
           baseColor: Color(0xFFFCFCFC),
           expandedColor: colorTileBG,
-          /* leading: Image.network(
-            "http://demo.sharvayainfotech.in/images/profile.png",
-            height: 35,
-            width: 35,
-          ),*/
-          title: /*Text(
-            model.customerName,
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
-          ),*/
-              Row(
+
+          title: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -874,7 +840,7 @@ class _CustomerListScreenState extends BaseState<CustomerListScreen>
                       ),
                       GestureDetector(
                         onTap: () {
-                          // _onTapOfEditCustomer(model);
+                          _onTapOfEditCustomer(model);
                         },
                         child: Row(
                           children: <Widget>[
@@ -899,7 +865,7 @@ class _CustomerListScreenState extends BaseState<CustomerListScreen>
                       isDeleteVisible == true
                           ? GestureDetector(
                               onTap: () {
-                                //  _onTapOfDeleteInquiry(model.customerID);
+                                _onTapOfDeleteInquiry(model.customerID);
                               },
                               child: Row(
                                 children: <Widget>[
@@ -938,7 +904,7 @@ class _CustomerListScreenState extends BaseState<CustomerListScreen>
 
   ///navigates to search list screen
   Future<void> _onTapOfSearchView() async {
-    /*navigateTo(context, SearchCustomerScreen.routeName).then((value) {
+    navigateTo(context, SearchCustomerScreen.routeName).then((value) {
       if (value != null) {
         _searchDetails = value;
         _CustomerBloc.add(SearchCustomerListByNumberCallEvent(
@@ -946,9 +912,8 @@ class _CustomerListScreenState extends BaseState<CustomerListScreen>
                 companyId: CompanyID,
                 loginUserID: LoginUserID,
                 CustomerID: _searchDetails.value.toString())));
-        //  _CustomerBloc.add(CustomerListCallEvent(1,CustomerPaginationRequest(companyId: 8033,loginUserID: "admin",CustomerID: "",ListMode: "L")));
       }
-    });*/
+    });
   }
 
   ///updates data of inquiry list
@@ -971,5 +936,34 @@ class _CustomerListScreenState extends BaseState<CustomerListScreen>
 
   Future<void> _onTapOfDeleteALLContact() async {
     await OfflineDbHelper.getInstance().deleteContactTable();
+  }
+
+  void _onTapOfEditCustomer(CustomerDetails model) {
+    navigateTo(context, Customer_ADD_EDIT.routeName,
+            arguments: AddUpdateCustomerScreenArguments(model))
+        .then((value) {
+      _CustomerBloc
+        ..add(CustomerListCallEvent(
+            1,
+            CustomerPaginationRequest(
+                companyId: CompanyID,
+                loginUserID: LoginUserID,
+                CustomerID: "",
+                ListMode: "L")));
+    });
+  }
+
+  void _onTapOfDeleteInquiry(int id) {
+    print("CUSTID" + id.toString());
+    showCommonDialogWithTwoOptions(
+        context, "Are you sure you want to delete this Customer?",
+        negativeButtonTitle: "No",
+        positiveButtonTitle: "Yes", onTapOfPositiveButton: () {
+      Navigator.of(context).pop();
+      //_collapse();
+      _CustomerBloc.add(CustomerDeleteByNameCallEvent(
+          id, CustomerDeleteRequest(CompanyID: CompanyID.toString())));
+      // _CustomerBloc..add(CustomerListCallEvent(1,CustomerPaginationRequest(companyId: CompanyID,loginUserID: LoginUserID,CustomerID: "",ListMode: "L")));
+    });
   }
 }

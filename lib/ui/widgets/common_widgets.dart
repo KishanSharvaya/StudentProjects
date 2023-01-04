@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:soleoserp/models/common/all_name_id_list.dart';
 import 'package:soleoserp/models/common/custom_text_editing_controller.dart';
 import 'package:soleoserp/ui/res/color_resources.dart';
 import 'package:soleoserp/ui/res/dimen_resources.dart';
@@ -845,6 +846,247 @@ Container getDropDown(List<String> data, String selected, BuildContext context,
         ),
       ],
     ),
+  );
+}
+
+showcustomdialogWithOnlyName(
+    {List<ALL_Name_ID> values,
+    BuildContext context1,
+    TextEditingController controller,
+    String lable}) async {
+  await showDialog(
+    barrierDismissible: false,
+    context: context1,
+    builder: (BuildContext context123) {
+      return SimpleDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(32.0))),
+        title: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: colorPrimary, //                   <--- border color
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(
+                      15.0) //                 <--- border radius here
+                  ),
+            ),
+            child: Container(
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  lable,
+                  style: TextStyle(
+                      color: colorPrimary, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ))),
+        children: [
+          SizedBox(
+              width: MediaQuery.of(context123).size.width,
+              child: Column(
+                children: [
+                  SingleChildScrollView(
+                      physics: ScrollPhysics(),
+                      child: Column(children: <Widget>[
+                        ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (ctx, index) {
+                            return InkWell(
+                              onTap: () {
+                                Navigator.of(context1).pop();
+                                controller.text = values[index].Name;
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                    left: 25, top: 10, bottom: 10, right: 10),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: colorPrimary), //Change color
+                                      width: 10.0,
+                                      height: 10.0,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 1.5),
+                                    ),
+                                    SizedBox(
+                                      width: 15,
+                                    ),
+                                    Text(
+                                      values[index].Name,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          color: colorPrimary, fontSize: 10),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+
+                            /* return SimpleDialogOption(
+                              onPressed: () => {
+                                controller.text = values[index].Name,
+                                controller2.text = values[index].Name1,
+                              Navigator.of(context1).pop(),
+
+
+                            },
+                              child: Text(values[index].Name),
+                            );*/
+                          },
+                          itemCount: values.length,
+                        ),
+                      ])),
+                ],
+              )),
+          /*Center(
+            child: Container(
+              padding: EdgeInsets.all(3.0),
+              decoration: BoxDecoration(
+                  color: Color(0xFFF27442),
+                  borderRadius: BorderRadius.all(Radius.circular(
+                      5.0) //                 <--- border radius here
+                  ),
+                  shape: BoxShape.rectangle,
+                  border: Border.all(color: Color(0xFFF27442))),
+              //color: Color(0xFFF27442),
+              child: GestureDetector(
+                child: Text(
+                  "Close",
+                  style: TextStyle(color: Color(0xFFFFFFFF)),
+                ),
+                onTap: () => Navigator.pop(context),
+              ),
+            ),
+          ),*/
+        ],
+      );
+    },
+  );
+}
+
+showcustomdialogWithID(
+    {List<ALL_Name_ID> values,
+    BuildContext context1,
+    TextEditingController controller,
+    TextEditingController controllerID,
+    String lable}) async {
+  await showDialog(
+    barrierDismissible: false,
+    context: context1,
+    builder: (BuildContext context123) {
+      return SimpleDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(32.0))),
+        title: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: colorPrimary, //                   <--- border color
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(
+                      15.0) //                 <--- border radius here
+                  ),
+            ),
+            child: Container(
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  lable,
+                  style: TextStyle(
+                      color: colorPrimary, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ))),
+        children: [
+          SizedBox(
+              width: MediaQuery.of(context123).size.width,
+              child: Column(
+                children: [
+                  SingleChildScrollView(
+                      physics: ScrollPhysics(),
+                      child: Column(children: <Widget>[
+                        ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (ctx, index) {
+                            return InkWell(
+                              onTap: () {
+                                Navigator.of(context1).pop();
+                                controller.text = values[index].Name;
+                                controllerID.text =
+                                    values[index].pkID.toString();
+
+                                print(
+                                    "IDSS : " + values[index].pkID.toString());
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                    left: 25, top: 10, bottom: 10, right: 10),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: colorPrimary), //Change color
+                                      width: 10.0,
+                                      height: 10.0,
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 1.5),
+                                    ),
+                                    SizedBox(
+                                      width: 15,
+                                    ),
+                                    SizedBox(
+                                      width: 150,
+                                      child: Text(
+                                        values[index].Name,
+                                        style: TextStyle(
+                                            color: colorPrimary, fontSize: 12),
+                                        softWrap: true,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+
+                            /* return SimpleDialogOption(
+                              onPressed: () => {
+                                controller.text = values[index].Name,
+                                controller2.text = values[index].Name1,
+                              Navigator.of(context1).pop(),
+
+
+                            },
+                              child: Text(values[index].Name),
+                            );*/
+                          },
+                          itemCount: values.length,
+                        ),
+                      ])),
+                ],
+              )),
+          /*Center(
+            child: Container(
+              padding: EdgeInsets.all(3.0),
+              decoration: BoxDecoration(
+                  color: Color(0xFFF27442),
+                  borderRadius: BorderRadius.all(Radius.circular(
+                      5.0) //                 <--- border radius here
+                  ),
+                  shape: BoxShape.rectangle,
+                  border: Border.all(color: Color(0xFFF27442))),
+              //color: Color(0xFFF27442),
+              child: GestureDetector(
+                child: Text(
+                  "Close",
+                  style: TextStyle(color: Color(0xFFFFFFFF)),
+                ),
+                onTap: () => Navigator.pop(context),
+              ),
+            ),
+          ),*/
+        ],
+      );
+    },
   );
 }
 

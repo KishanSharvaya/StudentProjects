@@ -4,10 +4,14 @@ import 'package:soleoserp/ui/res/localizations/app_localizations.dart';
 import 'package:soleoserp/ui/res/style_resources.dart';
 import 'package:soleoserp/ui/screens/authentication/login_screen.dart';
 import 'package:soleoserp/ui/screens/authentication/registration_screen.dart';
+import 'package:soleoserp/ui/screens/dashboard/Customer/CustomerAdd_Edit/customer_add_edit.dart';
+import 'package:soleoserp/ui/screens/dashboard/Customer/customer_list_screen.dart';
 import 'package:soleoserp/ui/screens/dashboard/home_screen.dart';
 import 'package:soleoserp/utils/general_utils.dart';
 import 'package:soleoserp/utils/offline_db_helper.dart';
 import 'package:soleoserp/utils/shared_pref_helper.dart';
+
+import 'ui/screens/dashboard/Customer/search_customer_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,7 +38,13 @@ class MyApp extends StatefulWidget {
         return getMaterialPageRoute(LoginScreen());
       case HomeScreen.routeName:
         return getMaterialPageRoute(HomeScreen());
-//HomeScreen
+      case CustomerListScreen.routeName:
+        return getMaterialPageRoute(CustomerListScreen());
+      case Customer_ADD_EDIT.routeName:
+        return getMaterialPageRoute(Customer_ADD_EDIT(settings.arguments));
+      case SearchCustomerScreen.routeName:
+        return getMaterialPageRoute(SearchCustomerScreen());
+      //SearchCustomerScreen
       default:
         return null;
     }

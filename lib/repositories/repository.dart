@@ -179,6 +179,7 @@ class Repository {
 
   Future<CustomerAddEditApiResponse> customer_add_edit_details(
       CustomerAddEditApiRequest customerAddEditApiRequest) async {
+    print("fdhfkjh" + customerAddEditApiRequest.toJson().toString());
     try {
       Map<String, dynamic> json = await apiClient.apiCallPost(
           ApiClient.END_POINT_CUSTOMER_ADD_EDIT +

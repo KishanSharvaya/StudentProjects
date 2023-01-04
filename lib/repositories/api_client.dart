@@ -600,6 +600,7 @@ CartFlutterLive     : [BaseURL(API)]:	http://208.109.14.134:86/ [WebURL]:http://
   Future<dynamic> _response(http.Response response,
       {bool showSuccessDialog = false}) async {
     log("Api response\n${response.body}");
+    print("Api response\n${response.body}");
     switch (response.statusCode) {
       case 200:
         var responseJson = json.decode(response.body);
