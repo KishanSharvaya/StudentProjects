@@ -62,6 +62,22 @@ CartFlutterLive     : [BaseURL(API)]:	http://208.109.14.134:86/ [WebURL]:http://
   static const END_POINT_CUSTOMER_ADD_EDIT = "Customer/";
   static const END_POINT_CUSTOMER_DELETE = "Customer/";
   static const END_POINT_CUSTOMER_SOURCE = 'Customer/Source';
+  static const END_POINT_INQUIRY = 'Inquiry';
+  static const END_POINT_INQUIRY_SEARCH_BY_INQUIRY_NO =
+      'Inquiry/SearchByInquiryNo';
+
+  static const END_POINT_INQUIRY_SEARCH_BY_NAME = 'Inquiry/SearchByName';
+  static const END_POINT_PRODUCT_SEARCH = "Inquiry/Product/List";
+  static const END_POINT_INQUIRY_HEADER_SAVE = "Inquiry/";
+  static const END_POINT_INQUIRY_PRODUCT_SAVE = "Inquiry/Product/INS_UPD";
+  static const END_POINT_INQUIRY_NO_TO_PRODUCT_LIST = "Inquiry/Products/1-1000";
+  static const END_POINT_INQUIRY_NO_TO_DELETE_PRODUCT_LIST = "Inquiry/";
+  static const END_POINT_INQUIRY_SEARCH_BY_PKID = 'Inquiry/';
+  static const END_POINT_FOLLOWUP_TYPE_LIST = "Customer/Source";
+
+  static const END_POINT_FOLLOWER_EMPLOYEE_LIST =
+      'Inquiry/EmployeeFollowerList';
+  static const END_POINT_INQUIRY_SEARCH_BY_FILLTER = 'Inquiry/SearchList';
 
   //DailyAttendanceMode/0/Save
   final http.Client httpClient;

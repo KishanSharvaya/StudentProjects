@@ -7,6 +7,13 @@ import 'package:soleoserp/ui/screens/authentication/registration_screen.dart';
 import 'package:soleoserp/ui/screens/dashboard/Customer/CustomerAdd_Edit/customer_add_edit.dart';
 import 'package:soleoserp/ui/screens/dashboard/Customer/customer_list_screen.dart';
 import 'package:soleoserp/ui/screens/dashboard/home_screen.dart';
+import 'package:soleoserp/ui/screens/dashboard/inquiry/add_inquiry_product_screen.dart';
+import 'package:soleoserp/ui/screens/dashboard/inquiry/customer_search/customer_search_screen.dart';
+import 'package:soleoserp/ui/screens/dashboard/inquiry/inquiry_add_edit.dart';
+import 'package:soleoserp/ui/screens/dashboard/inquiry/inquiry_list_screen.dart';
+import 'package:soleoserp/ui/screens/dashboard/inquiry/inquiry_product_list_screen.dart';
+import 'package:soleoserp/ui/screens/dashboard/inquiry/search_inquiry_product_screen.dart';
+import 'package:soleoserp/ui/screens/dashboard/inquiry/search_inquiry_screen.dart';
 import 'package:soleoserp/utils/general_utils.dart';
 import 'package:soleoserp/utils/offline_db_helper.dart';
 import 'package:soleoserp/utils/shared_pref_helper.dart';
@@ -44,7 +51,27 @@ class MyApp extends StatefulWidget {
         return getMaterialPageRoute(Customer_ADD_EDIT(settings.arguments));
       case SearchCustomerScreen.routeName:
         return getMaterialPageRoute(SearchCustomerScreen());
-      //SearchCustomerScreen
+
+      case InquiryListScreen.routeName:
+        return getMaterialPageRoute(InquiryListScreen());
+
+      case InquiryAddEditScreen.routeName:
+        return getMaterialPageRoute(InquiryAddEditScreen(settings.arguments));
+
+      case InquiryProductListScreen.routeName:
+        return getMaterialPageRoute(
+            InquiryProductListScreen(settings.arguments));
+
+      case SearchInquiryCustomerScreen.routeName:
+        return getMaterialPageRoute(SearchInquiryCustomerScreen());
+      case AddInquiryProductScreen.routeName:
+        return getMaterialPageRoute(
+            AddInquiryProductScreen(settings.arguments));
+      case SearchInquiryProductScreen.routeName:
+        return getMaterialPageRoute(SearchInquiryProductScreen());
+      case SearchInquiryScreen.routeName:
+        return getMaterialPageRoute(SearchInquiryScreen());
+      //SearchInquiryScreen
       default:
         return null;
     }

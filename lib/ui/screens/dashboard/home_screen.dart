@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shine/flutter_shine.dart';
 import 'package:soleoserp/blocs/other/authentication/authentication_bloc.dart';
 import 'package:soleoserp/models/api_response/company_details/company_details_response.dart';
@@ -10,6 +9,7 @@ import 'package:soleoserp/ui/res/color_resources.dart';
 import 'package:soleoserp/ui/screens/authentication/login_screen.dart';
 import 'package:soleoserp/ui/screens/base/base_screen.dart';
 import 'package:soleoserp/ui/screens/dashboard/Customer/customer_list_screen.dart';
+import 'package:soleoserp/ui/screens/dashboard/inquiry/inquiry_list_screen.dart';
 import 'package:soleoserp/ui/widgets/common_widgets.dart';
 import 'package:soleoserp/utils/general_utils.dart';
 import 'package:soleoserp/utils/shared_pref_helper.dart';
@@ -42,7 +42,7 @@ class _HomeScreenState extends BaseState<HomeScreen>
 
   ///listener and builder to multiple states of bloc to handles api responses
   ///use BlocProvider if need to listen and build
-  @override
+/*  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) => _authenticationBloc,
@@ -66,7 +66,7 @@ class _HomeScreenState extends BaseState<HomeScreen>
         },
       ),
     );
-  }
+  }*/
 
   @override
   Widget buildBody(BuildContext context) {
@@ -128,7 +128,6 @@ class _HomeScreenState extends BaseState<HomeScreen>
           ),
           GestureDetector(
             onTap: () {
-              SharedPrefHelper.instance.prefs.setString("Is_Dealer", "");
               _onTapOfLogOut();
             },
             child: Container(
@@ -157,8 +156,7 @@ class _HomeScreenState extends BaseState<HomeScreen>
                     children: [
                       InkWell(
                         onTap: () {
-                          navigateTo(context, CustomerListScreen.routeName,
-                              clearAllStack: true);
+                          navigateTo(context, CustomerListScreen.routeName);
                         },
                         child: Column(
                           children: [
@@ -170,14 +168,19 @@ class _HomeScreenState extends BaseState<HomeScreen>
                           ],
                         ),
                       ),
-                      Column(
-                        children: [
-                          Icon(
-                            Icons.call,
-                            size: 42,
-                          ),
-                          Text("Inquiry")
-                        ],
+                      InkWell(
+                        onTap: () {
+                          navigateTo(context, InquiryListScreen.routeName);
+                        },
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.call,
+                              size: 42,
+                            ),
+                            Text("Inquiry")
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -355,8 +358,8 @@ class _HomeScreenState extends BaseState<HomeScreen>
     );
   }
 
-  Future<void> _onTapOfLogOut() async {
-    await SharedPrefHelper.instance
+  _onTapOfLogOut() {
+    SharedPrefHelper.instance
         .putBool(SharedPrefHelper.IS_LOGGED_IN_DATA, false);
 
     navigateTo(context, LoginScreen.routeName, clearAllStack: true);

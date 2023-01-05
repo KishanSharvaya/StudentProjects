@@ -15,7 +15,6 @@ import 'package:soleoserp/ui/screens/dashboard/Customer/CustomerAdd_Edit/custome
 import 'package:soleoserp/ui/screens/dashboard/Customer/search_customer_screen.dart';
 import 'package:soleoserp/ui/screens/dashboard/home_screen.dart';
 import 'package:soleoserp/utils/general_utils.dart';
-import 'package:soleoserp/utils/offline_db_helper.dart';
 import 'package:soleoserp/utils/shared_pref_helper.dart';
 
 class CustomerListScreen extends BaseStatefulWidget {
@@ -932,10 +931,6 @@ class _CustomerListScreenState extends BaseState<CustomerListScreen>
         "");
     //baseBloc.refreshScreen();
     navigateTo(context, CustomerListScreen.routeName, clearAllStack: true);
-  }
-
-  Future<void> _onTapOfDeleteALLContact() async {
-    await OfflineDbHelper.getInstance().deleteContactTable();
   }
 
   void _onTapOfEditCustomer(CustomerDetails model) {

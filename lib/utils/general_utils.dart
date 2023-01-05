@@ -27,20 +27,6 @@ Future navigateTo(BuildContext context, String routeName,
   }
 }
 
-/*void showSnackBar(GlobalKey<ScaffoldState> scaffoldKey, String message) {
-  scaffoldKey.currentState.showSnackBar(SnackBar(
-    content: Text(
-      message,
-      style: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.bold,
-        color: colorWhite,
-      ),
-      textAlign: TextAlign.center,
-    ),
-  ));
-}*/
-
 Future showCommonDialogWithTwoOptions(BuildContext context, String message,
     {String negativeButtonTitle,
     String positiveButtonTitle,

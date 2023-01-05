@@ -29,7 +29,6 @@ import 'package:soleoserp/ui/screens/dashboard/Customer/customer_list_screen.dar
 import 'package:soleoserp/ui/widgets/common_widgets.dart';
 import 'package:soleoserp/utils/General_Constants.dart';
 import 'package:soleoserp/utils/general_utils.dart';
-import 'package:soleoserp/utils/offline_db_helper.dart';
 import 'package:soleoserp/utils/shared_pref_helper.dart';
 
 class AddUpdateCustomerScreenArguments {
@@ -446,7 +445,6 @@ class _Customer_ADD_EDITState extends BaseState<Customer_ADD_EDIT>
 
   Future<void> _onTapOfLogOut() async {
     //await SharedPrefHelper.instance.clear();
-    await _onTapOfDeleteALLContact();
     navigateTo(context, HomeScreen.routeName, clearAllStack: true);
   }
 
@@ -454,7 +452,6 @@ class _Customer_ADD_EDITState extends BaseState<Customer_ADD_EDIT>
     // Your back press code here...
     // CommonUtils.showToast(context, "Back presses");
     // Navigator.defaultRouteName.
-    await _onTapOfDeleteALLContact();
     navigateTo(context, CustomerListScreen.routeName);
   }
 
@@ -1929,8 +1926,6 @@ class _Customer_ADD_EDITState extends BaseState<Customer_ADD_EDIT>
 
     print("BlockCustomer" + _editModel.blockCustomer.toString());
     if (customerID != null) {
-      await _onTapOfDeleteALLContact();
-
       _CustomerBloc.add(CustomerIdToCustomerListCallEvent(
           CustomerIdToCustomerListRequest(
               CustomerID: customerID.toString(),
@@ -1946,10 +1941,6 @@ class _Customer_ADD_EDITState extends BaseState<Customer_ADD_EDIT>
       all_name_id.pkID = offlineCustomerCategoryData123.details[i].pkID;
       arr_ALL_Name_ID_For_Category.add(all_name_id);
     }
-  }
-
-  Future<void> _onTapOfDeleteALLContact() async {
-    await OfflineDbHelper.getInstance().deleteContactTable();
   }
 
   void _OnCustomerContactSucess(CustomerContactSaveResponseState state) async {

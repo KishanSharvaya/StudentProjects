@@ -1,5 +1,5 @@
 import 'package:path/path.dart';
-import 'package:soleoserp/models/DB_Models/productdetails.dart';
+import 'package:soleoserp/models/common/inquiry_product_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 class OfflineDbHelper {
@@ -7,26 +7,24 @@ class OfflineDbHelper {
   static Database database;
 
   static const TABLE_PRODUCT_CART = "product_cart";
+  static const TABLE_INQUIRY_PRODUCT = "inquiry_product";
 
   static createInstance() async {
     _offlineDbHelper = OfflineDbHelper();
     database = await openDatabase(
         join(await getDatabasesPath(), 'grocery_shop_database.db'),
         onCreate: (db, version) => _createDb(db),
-        version: 1);
+        version: 2);
   }
 
   static void _createDb(Database db) {
     String ProductName, Unit, LoginUserID;
-/*
 
-int id;
-  int ProductID;
-  double Quantity, Amount, NetAmount;
-  String ProductName, ProductImage;
-*/
     db.execute(
       'CREATE TABLE $TABLE_PRODUCT_CART(id INTEGER PRIMARY KEY AUTOINCREMENT, ProductID INTEGER,Quantity DOUBLE, Amount DOUBLE, NetAmount DOUBLE , ProductName TEXT, ProductImage TEXT)',
+    );
+    db.execute(
+      'CREATE TABLE $TABLE_INQUIRY_PRODUCT(id INTEGER PRIMARY KEY AUTOINCREMENT, InquiryNo TEXT,LoginUserID TEXT, CompanyId TEXT, ProductName TEXT, ProductID TEXT, Quantity TEXT, UnitPrice TEXT,TotalAmount TEXT)',
     );
   }
 
@@ -34,60 +32,63 @@ int id;
     return _offlineDbHelper;
   }
 
-  ///Here Customer Contact Table Implimentation
+  ///Here InquiryProduct Table Implimentation
 
-  Future<int> insertProductToCart(ProductCartModel model) async {
+  Future<int> insertInquiryProduct(InquiryProductModel model) async {
     final db = await database;
 
     return await db.insert(
-      TABLE_PRODUCT_CART,
+      TABLE_INQUIRY_PRODUCT,
       model.toJson(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  Future<List<ProductCartModel>> getProductCartList() async {
+  Future<List<InquiryProductModel>> getInquiryProduct() async {
     final db = await database;
 
-    final List<Map<String, dynamic>> maps = await db.query(TABLE_PRODUCT_CART);
+    final List<Map<String, dynamic>> maps =
+        await db.query(TABLE_INQUIRY_PRODUCT);
 
     return List.generate(maps.length, (i) {
-      return ProductCartModel(
+      return InquiryProductModel(
+        maps[i]['InquiryNo'],
+        maps[i]['LoginUserID'],
+        maps[i]['CompanyId'],
+        maps[i]['ProductName'],
         maps[i]['ProductID'],
         maps[i]['Quantity'],
-        maps[i]['Amount'],
-        maps[i]['NetAmount'],
-        maps[i]['ProductName'],
-        maps[i]['ProductImage'],
+        maps[i]['UnitPrice'],
+        maps[i]['TotalAmount'],
         id: maps[i]['id'],
       );
     });
   }
 
-  Future<void> updateContact(ProductCartModel model) async {
+  Future<void> updateInquiryProduct(InquiryProductModel model) async {
     final db = await database;
 
     await db.update(
-      TABLE_PRODUCT_CART,
+      TABLE_INQUIRY_PRODUCT,
       model.toJson(),
       where: 'id = ?',
       whereArgs: [model.id],
     );
   }
 
-  Future<void> deleteContact(int id) async {
+  Future<void> deleteInquiryProduct(int id) async {
     final db = await database;
 
     await db.delete(
-      TABLE_PRODUCT_CART,
+      TABLE_INQUIRY_PRODUCT,
       where: 'id = ?',
       whereArgs: [id],
     );
   }
 
-  Future<void> deleteContactTable() async {
+  Future<void> deleteALLInquiryProduct() async {
     final db = await database;
 
-    await db.delete(TABLE_PRODUCT_CART);
+    await db.delete(TABLE_INQUIRY_PRODUCT);
   }
 }
