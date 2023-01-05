@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:soleoserp/models/common/inquiry_product_model.dart';
 import 'package:soleoserp/ui/res/color_resources.dart';
 import 'package:soleoserp/ui/screens/base/base_screen.dart';
-import 'package:soleoserp/ui/screens/dashboard/inquiry/add_inquiry_product_screen.dart';
+import 'package:soleoserp/ui/screens/DashBoard/inquiry/add_inquiry_product_screen.dart';
 import 'package:soleoserp/utils/general_utils.dart';
 import 'package:soleoserp/utils/offline_db_helper.dart';
 

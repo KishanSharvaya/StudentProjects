@@ -15,6 +15,7 @@ class SharedPrefHelper {
 
   static const String IS_COMPANY_LOGGED_IN_DATA = "company_logged_in_data";
   static const String IS_LOGGED_IN_USER_DATA = "logged_User_in_data";
+  static const String BASE_URL_FROM_SCREEN = "baseURL";
 
   SharedPrefHelper._(this.prefs);
 
@@ -98,5 +99,13 @@ class SharedPrefHelper {
   LoginUserDetialsResponse getLoginUserData() {
     return LoginUserDetialsResponse.fromJson(
         json.decode(getString(IS_LOGGED_IN_USER_DATA)));
+  }
+
+  String getBaseURL() {
+    return getString(BASE_URL_FROM_SCREEN);
+  }
+
+  setBaseURL(String data) async {
+    await putString(BASE_URL_FROM_SCREEN, data);
   }
 }

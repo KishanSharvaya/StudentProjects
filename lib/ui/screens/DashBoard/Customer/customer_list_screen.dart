@@ -11,9 +11,9 @@ import 'package:soleoserp/models/api_response/customer/customer_label_value_resp
 import 'package:soleoserp/models/api_response/login/login_user_details_api_response.dart';
 import 'package:soleoserp/ui/res/color_resources.dart';
 import 'package:soleoserp/ui/screens/base/base_screen.dart';
-import 'package:soleoserp/ui/screens/dashboard/Customer/CustomerAdd_Edit/customer_add_edit.dart';
-import 'package:soleoserp/ui/screens/dashboard/Customer/search_customer_screen.dart';
-import 'package:soleoserp/ui/screens/dashboard/home_screen.dart';
+import 'package:soleoserp/ui/screens/DashBoard/Customer/CustomerAdd_Edit/customer_add_edit.dart';
+import 'package:soleoserp/ui/screens/DashBoard/Customer/search_customer_screen.dart';
+import 'package:soleoserp/ui/screens/DashBoard/home_screen.dart';
 import 'package:soleoserp/utils/general_utils.dart';
 import 'package:soleoserp/utils/shared_pref_helper.dart';
 

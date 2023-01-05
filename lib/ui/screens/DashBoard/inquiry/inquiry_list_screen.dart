@@ -16,9 +16,9 @@ import 'package:soleoserp/models/api_response/other/follower_employee_list_respo
 import 'package:soleoserp/models/common/all_name_id_list.dart';
 import 'package:soleoserp/ui/res/color_resources.dart';
 import 'package:soleoserp/ui/screens/base/base_screen.dart';
-import 'package:soleoserp/ui/screens/dashboard/home_screen.dart';
-import 'package:soleoserp/ui/screens/dashboard/inquiry/inquiry_add_edit.dart';
-import 'package:soleoserp/ui/screens/dashboard/inquiry/search_inquiry_screen.dart';
+import 'package:soleoserp/ui/screens/DashBoard/home_screen.dart';
+import 'package:soleoserp/ui/screens/DashBoard/inquiry/inquiry_add_edit.dart';
+import 'package:soleoserp/ui/screens/DashBoard/inquiry/search_inquiry_screen.dart';
 import 'package:soleoserp/utils/date_time_extensions.dart';
 import 'package:soleoserp/utils/general_utils.dart';
 import 'package:soleoserp/utils/offline_db_helper.dart';

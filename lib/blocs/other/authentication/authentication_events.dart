@@ -14,6 +14,7 @@ class RegistrationRequestEvent extends AuthenticationEvent {
 class LoginRequestEvent extends AuthenticationEvent {
   //declare and pass request as below
 
+  BuildContext context;
   LoginRequest request;
-  LoginRequestEvent(this.request);
+  LoginRequestEvent(this.context, this.request);
 }

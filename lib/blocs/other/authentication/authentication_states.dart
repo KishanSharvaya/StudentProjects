@@ -16,6 +16,7 @@ class ComapnyDetailsResponseState extends AuthenticationStates {
 
 class LoginUserDetialsResponseState extends AuthenticationStates {
   //declare and pass request as below
+  BuildContext contextfromScreen;
   LoginUserDetialsResponse response;
-  LoginUserDetialsResponseState(this.response);
+  LoginUserDetialsResponseState(this.contextfromScreen, this.response);
 }

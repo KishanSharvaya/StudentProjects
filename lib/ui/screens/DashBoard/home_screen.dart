@@ -1,15 +1,17 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_shine/flutter_shine.dart';
 import 'package:soleoserp/blocs/other/authentication/authentication_bloc.dart';
+import 'package:soleoserp/models/api_request/registraion/registration_request.dart';
 import 'package:soleoserp/models/api_response/company_details/company_details_response.dart';
 import 'package:soleoserp/models/api_response/login/login_user_details_api_response.dart';
 import 'package:soleoserp/ui/res/color_resources.dart';
 import 'package:soleoserp/ui/screens/authentication/login_screen.dart';
 import 'package:soleoserp/ui/screens/base/base_screen.dart';
-import 'package:soleoserp/ui/screens/dashboard/Customer/customer_list_screen.dart';
-import 'package:soleoserp/ui/screens/dashboard/inquiry/inquiry_list_screen.dart';
+import 'package:soleoserp/ui/screens/DashBoard/Customer/customer_list_screen.dart';
+import 'package:soleoserp/ui/screens/DashBoard/inquiry/inquiry_list_screen.dart';
 import 'package:soleoserp/ui/widgets/common_widgets.dart';
 import 'package:soleoserp/utils/general_utils.dart';
 import 'package:soleoserp/utils/shared_pref_helper.dart';
@@ -38,23 +40,33 @@ class _HomeScreenState extends BaseState<HomeScreen>
     _offlineLoggedInData = SharedPrefHelper.instance.getLoginUserData();
     CompanyID = _offlineCompanyData.details[0].pkId;
     _authenticationBloc = AuthenticationBloc(baseBloc);
+    _authenticationBloc.add(RegistrationRequestEvent(RegistrationRequest(
+        serialKey: _offlineLoggedInData.details[0].serialKey)));
   }
 
   ///listener and builder to multiple states of bloc to handles api responses
   ///use BlocProvider if need to listen and build
-/*  @override
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => _authenticationBloc,
+      create: (BuildContext context) => _authenticationBloc
+        ..add(RegistrationRequestEvent(RegistrationRequest(
+            serialKey: _offlineLoggedInData.details[0].serialKey))),
       child: BlocConsumer<AuthenticationBloc, AuthenticationStates>(
         builder: (BuildContext context, AuthenticationStates state) {
           //handle states
+          if (state is ComapnyDetailsResponseState) {
+            getCompanyDataResponse(state);
+          }
 
           return super.build(context);
         },
         buildWhen: (oldState, currentState) {
           //return true for state for which builder method should be called
 
+          if (currentState is ComapnyDetailsResponseState) {
+            return true;
+          }
           return false;
         },
         listener: (BuildContext context, AuthenticationStates state) {
@@ -66,10 +78,10 @@ class _HomeScreenState extends BaseState<HomeScreen>
         },
       ),
     );
-  }*/
+  }
 
   @override
-  Widget buildBody(BuildContext context) {
+  Widget buildBody(BuildContext context123) {
     /*edt_User_Name.text = "admin";
     edt_User_Password.text = "admin!@#";*/
 
@@ -81,7 +93,6 @@ class _HomeScreenState extends BaseState<HomeScreen>
             child: IconButton(
               iconSize: 35,
               icon: Icon(Icons.menu),
-              onPressed: () => Scaffold.of(context).openDrawer(),
             ),
           ),
         ),
@@ -128,7 +139,10 @@ class _HomeScreenState extends BaseState<HomeScreen>
           ),
           GestureDetector(
             onTap: () {
-              _onTapOfLogOut();
+              SharedPrefHelper.instance
+                  .putBool(SharedPrefHelper.IS_LOGGED_IN_DATA, false);
+
+              navigateTo(context, LoginScreen.routeName, clearAllStack: true);
             },
             child: Container(
               padding: EdgeInsets.only(top: 20, right: 20),
@@ -141,80 +155,86 @@ class _HomeScreenState extends BaseState<HomeScreen>
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.only(left: 40, right: 40, top: 50, bottom: 50),
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          navigateTo(context, CustomerListScreen.routeName);
-                        },
-                        child: Column(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          navigateTo(context, HomeScreen.routeName, clearAllStack: true);
+        },
+        child: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.only(left: 40, right: 40, top: 50, bottom: 50),
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            navigateTo(context, CustomerListScreen.routeName,
+                                clearAllStack: true);
+                          },
+                          child: Column(
+                            children: [
+                              Icon(
+                                Icons.people,
+                                size: 42,
+                              ),
+                              Text("Customer")
+                            ],
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            navigateTo(context, InquiryListScreen.routeName);
+                          },
+                          child: Column(
+                            children: [
+                              Icon(
+                                Icons.call,
+                                size: 42,
+                              ),
+                              Text("Inquiry")
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Center(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
                           children: [
                             Icon(
-                              Icons.people,
+                              Icons.follow_the_signs,
                               size: 42,
                             ),
-                            Text("Customer")
+                            Text("Followup")
                           ],
                         ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          navigateTo(context, InquiryListScreen.routeName);
-                        },
-                        child: Column(
+                        Column(
                           children: [
                             Icon(
-                              Icons.call,
+                              Icons.add_task,
                               size: 42,
                             ),
-                            Text("Inquiry")
+                            Text("ToDo")
                           ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                Center(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Column(
-                        children: [
-                          Icon(
-                            Icons.follow_the_signs,
-                            size: 42,
-                          ),
-                          Text("Followup")
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Icon(
-                            Icons.add_task,
-                            size: 42,
-                          ),
-                          Text("ToDo")
-                        ],
-                      )
-                    ],
-                  ),
-                )
-              ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -358,10 +378,7 @@ class _HomeScreenState extends BaseState<HomeScreen>
     );
   }
 
-  _onTapOfLogOut() {
-    SharedPrefHelper.instance
-        .putBool(SharedPrefHelper.IS_LOGGED_IN_DATA, false);
-
-    navigateTo(context, LoginScreen.routeName, clearAllStack: true);
+  void getCompanyDataResponse(ComapnyDetailsResponseState state) {
+    print("CompanyData" + state.companyDetailsResponse.details[0].companyName);
   }
 }

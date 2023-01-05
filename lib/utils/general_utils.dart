@@ -1,7 +1,39 @@
 import 'package:flutter/material.dart' hide Key;
 import 'package:flutter/rendering.dart';
+import 'package:soleoserp/models/common/globals.dart';
 import 'package:soleoserp/ui/res/color_resources.dart';
 import 'package:soleoserp/ui/widgets/common_widgets.dart';
+
+/*Future navigateTo(BuildContext context, String routeName,
+    {Object arguments,
+    bool clearAllStack: false,
+    bool clearSingleStack: false,
+    bool useRootNavigator: false,
+      bool ispop : false,
+    String clearUntilRoute}) async {
+  if (clearAllStack) {
+    await Navigator.of(context, rootNavigator: useRootNavigator)
+        .pushNamedAndRemoveUntil(routeName, (route) => false,
+            arguments: arguments);
+  } else if (clearSingleStack) {
+    await Navigator.of(context, rootNavigator: useRootNavigator)
+        .popAndPushNamed(routeName, arguments: arguments);
+  } else if (clearUntilRoute != null) {
+    await Navigator.of(context, rootNavigator: useRootNavigator)
+        .pushNamedAndRemoveUntil(
+            routeName, ModalRoute.withName(clearUntilRoute),
+            arguments: arguments);
+  }
+  else if(ispop != null)
+    {
+      await Navigator.of(context, rootNavigator: useRootNavigator)
+          .popAndPushNamed(routeName, arguments: arguments);
+    }
+  else {
+    return await Navigator.of(context, rootNavigator: useRootNavigator)
+        .pushNamed(routeName, arguments: arguments);
+  }
+}*/
 
 Future navigateTo(BuildContext context, String routeName,
     {Object arguments,
@@ -26,6 +58,20 @@ Future navigateTo(BuildContext context, String routeName,
         .pushNamed(routeName, arguments: arguments);
   }
 }
+
+/*void showSnackBar(GlobalKey<ScaffoldState> scaffoldKey, String message) {
+  scaffoldKey.currentState.showSnackBar(SnackBar(
+    content: Text(
+      message,
+      style: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+        color: colorWhite,
+      ),
+      textAlign: TextAlign.center,
+    ),
+  ));
+}*/
 
 Future showCommonDialogWithTwoOptions(BuildContext context, String message,
     {String negativeButtonTitle,
@@ -186,7 +232,8 @@ Future showCommonDialogWithSingleOption(
                 ),
                 onTap: onTapOfPositiveButton ??
                     () {
-                      Navigator.of(context, rootNavigator: true).pop();
+                      Navigator.of(Globals.context).pop();
+                      // Navigator.of(context, rootNavigator: true).pop();
                     },
               )
             ],
@@ -218,10 +265,89 @@ bool shouldPaginateFromController(ScrollController scrollController) {
   }
 }
 
+/*pickImage(
+  BuildContext context, {
+  @required Function(File f) onImageSelection,
+}) {
+  FocusScope.of(context).unfocus();
+  showModalBottomSheet(
+      context: context,
+      builder: (BuildContext bc) {
+        return SafeArea(
+          child: Container(
+            child: new Wrap(
+              children: <Widget>[
+                new ListTile(
+                    leading: new Icon(Icons.photo_library),
+                    title: new Text('Photo Library'),
+                    onTap: () async {
+                      Navigator.of(context).pop();
+                      PickedFile capturedFile = await ImagePicker().getImage(
+                          source: ImageSource.gallery, imageQuality: 100);
+
+                      if (capturedFile != null) {
+                        onImageSelection(File(capturedFile.path));
+                      }
+                    }),
+                new ListTile(
+                  leading: new Icon(Icons.photo_camera),
+                  title: new Text('Camera'),
+                  onTap: () async {
+                    Navigator.of(context).pop();
+                    PickedFile capturedFile = await ImagePicker().getImage(
+                        source: ImageSource.camera, imageQuality: 100);
+                    if (capturedFile != null) {
+                      onImageSelection(File(capturedFile.path));
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      });
+}*/
+
 MaterialPageRoute getMaterialPageRoute(Widget screen) {
   return MaterialPageRoute(
     builder: (context) {
       return screen;
     },
+  );
+}
+
+bool viewvisiblitiyAsperClient({String SerailsKey, String RoleCode}) {
+  if (SerailsKey.toLowerCase().toString() == "abcd-efgh-ijkl-mnow" ||
+      SerailsKey.toLowerCase().toString() == "dol2-6uh7-ph03-in5h") {
+    if (RoleCode.toLowerCase() == "admin") {
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return true;
+  }
+}
+
+Widget showCustomToast({String Title}) {
+  return Container(
+    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(25.0),
+      color: Colors.black,
+    ),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Icon(Icons.check, color: Colors.white),
+        SizedBox(
+          width: 12.0,
+        ),
+        Text(
+          Title,
+          style: TextStyle(color: Colors.white),
+        ),
+      ],
+    ),
   );
 }

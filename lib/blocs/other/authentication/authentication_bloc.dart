@@ -58,7 +58,8 @@ class AuthenticationBloc
       //call your api as follows
       LoginUserDetialsResponse companyDetailsResponse =
           await userRepository.getLoginDetailsApi(event.request);
-      yield LoginUserDetialsResponseState(companyDetailsResponse);
+      yield LoginUserDetialsResponseState(
+          event.context, companyDetailsResponse);
     } catch (error, stacktrace) {
       baseBloc.emit(ApiCallFailureState(error));
       print(stacktrace);

@@ -24,11 +24,16 @@ class _RegistrationScreenState extends BaseState<RegistrationScreen>
   TextEditingController _userNameController = TextEditingController();
   int count = 0;
 
+  //static var BaseURLFROMScreen = "";
+
   @override
   void initState() {
     super.initState();
     screenStatusBarColor = Colors.white;
     _authenticationBloc = AuthenticationBloc(baseBloc);
+    // BaseURLFROMScreen = "http://122.169.111.101:108/";
+    SharedPrefHelper.instance.setBaseURL("http://122.169.111.101:108/");
+    //ApiClient.BASE_URL = "http://122.169.111.101:108/";
   }
 
   ///listener and builder to multiple states of bloc to handles api responses
@@ -66,7 +71,7 @@ class _RegistrationScreenState extends BaseState<RegistrationScreen>
   }
 
   @override
-  Widget buildBody(BuildContext context) {
+  Widget buildBody(BuildContext context123) {
     /*edt_User_Name.text = "admin";
     edt_User_Password.text = "admin!@#";*/
 
@@ -250,12 +255,12 @@ class _RegistrationScreenState extends BaseState<RegistrationScreen>
     if (response.details.length != 0) {
       SharedPrefHelper.instance.setCompanyData(response);
       SharedPrefHelper.instance.putBool(SharedPrefHelper.IS_REGISTERED, true);
-
-      navigateTo(context, LoginScreen.routeName, clearAllStack: true);
-
       print("Company Details : " +
           response.details[0].companyName.toString() +
           "");
+      navigateTo(context, LoginScreen.routeName, clearAllStack: true);
+
+
     } else {
       showCommonDialogWithSingleOption(context, "Invalid SerialKey",
           positiveButtonTitle: "OK");

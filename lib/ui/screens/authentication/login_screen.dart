@@ -3,11 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soleoserp/blocs/other/authentication/authentication_bloc.dart';
 import 'package:soleoserp/models/api_request/login/login_request.dart';
 import 'package:soleoserp/models/api_response/company_details/company_details_response.dart';
-import 'package:soleoserp/models/api_response/login/login_user_details_api_response.dart';
 import 'package:soleoserp/ui/res/dimen_resources.dart';
 import 'package:soleoserp/ui/screens/authentication/registration_screen.dart';
 import 'package:soleoserp/ui/screens/base/base_screen.dart';
-import 'package:soleoserp/ui/screens/dashboard/home_screen.dart';
+import 'package:soleoserp/ui/screens/DashBoard/home_screen.dart';
 import 'package:soleoserp/ui/widgets/common_widgets.dart';
 import 'package:soleoserp/utils/general_utils.dart';
 import 'package:soleoserp/utils/shared_pref_helper.dart';
@@ -48,7 +47,7 @@ class _LoginScreenState extends BaseState<LoginScreen>
         builder: (BuildContext context, AuthenticationStates state) {
           //handle states
           if (state is LoginUserDetialsResponseState) {
-            _onLoginAPiResponse(state.response);
+            _onLoginAPiResponse(state);
           }
           return super.build(context);
         },
@@ -228,7 +227,26 @@ class _LoginScreenState extends BaseState<LoginScreen>
             children: [
               Expanded(
                 child: getCommonButton(baseTheme, () {
-                  _onTapOfLogin();
+                  // _onTapOfLogin(context);
+
+                  if (_userNameController.text != "") {
+                    if (_passwordController.text != "") {
+                      _authenticationBloc.add(LoginRequestEvent(
+                          context,
+                          LoginRequest(
+                              userID: _userNameController.text.toString(),
+                              password: _passwordController.text.toString(),
+                              companyId: _offlineCompanyData.details[0].pkId)));
+                    } else {
+                      showCommonDialogWithSingleOption(
+                          context, "Password is Required",
+                          positiveButtonTitle: "OK");
+                    }
+                  } else {
+                    showCommonDialogWithSingleOption(
+                        context, "UserName is Required",
+                        positiveButtonTitle: "OK");
+                  }
                 }, "Login",
                     radius: 15,
                     backGroundColor: Color(
@@ -252,38 +270,23 @@ class _LoginScreenState extends BaseState<LoginScreen>
     );
   }
 
-  void _onTapOfLogin() {
-    if (_userNameController.text != "") {
-      if (_passwordController.text != "") {
-        _authenticationBloc.add(LoginRequestEvent(LoginRequest(
-            userID: _userNameController.text.toString(),
-            password: _passwordController.text.toString(),
-            companyId: _offlineCompanyData.details[0].pkId)));
-      } else {
-        showCommonDialogWithSingleOption(context, "Password is Required",
-            positiveButtonTitle: "OK");
-      }
-    } else {
-      showCommonDialogWithSingleOption(context, "UserName is Required",
-          positiveButtonTitle: "OK");
-    }
-    //TODO
-  }
-
   void _onTapOfRegister() {
     SharedPrefHelper.instance.putBool(SharedPrefHelper.IS_REGISTERED, false);
     navigateTo(context, RegistrationScreen.routeName, clearAllStack: true);
-    // navigateTo(context, RegisterScreen.routeName, clearAllStack: true);
+
+    ///navigateTo(context, RegisterScreen.routeName, clearAllStack: true);
   }
 
-  void _onLoginAPiResponse(LoginUserDetialsResponse response) {
+  void _onLoginAPiResponse(LoginUserDetialsResponseState response) async {
     print("LoginResponse" +
         "Api Response EmployeeNAme : " +
-        response.details[0].employeeName);
-    SharedPrefHelper.instance.putBool(SharedPrefHelper.IS_LOGGED_IN_DATA, true);
-    SharedPrefHelper.instance.setLoginUserData(response);
-    _offlineCompanyData = SharedPrefHelper.instance.getCompanyData();
+        response.response.details[0].employeeName);
+    await SharedPrefHelper.instance
+        .putBool(SharedPrefHelper.IS_LOGGED_IN_DATA, true);
+    await SharedPrefHelper.instance.setLoginUserData(response.response);
+    //_offlineCompanyData = SharedPrefHelper.instance.getCompanyData();
 
-    navigateTo(context, HomeScreen.routeName, clearAllStack: true);
+    await navigateTo(response.contextfromScreen, HomeScreen.routeName,
+        clearAllStack: true);
   }
 }
