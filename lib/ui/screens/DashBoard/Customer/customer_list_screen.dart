@@ -138,7 +138,7 @@ class _CustomerListScreenState extends BaseState<CustomerListScreen>
       child: Scaffold(
         backgroundColor: colorWhite,
         appBar: AppBar(
-          title: Text('Customer List Updated MErge '),
+          title: Text('Customer List Updated MErge 123'),
           actions: <Widget>[
             GestureDetector(
                 onTap: () {
