@@ -260,7 +260,7 @@ class _RegistrationScreenState extends BaseState<RegistrationScreen>
           "");
       navigateTo(context, LoginScreen.routeName, clearAllStack: true);
 
-
+      ///
     } else {
       showCommonDialogWithSingleOption(context, "Invalid SerialKey",
           positiveButtonTitle: "OK");
