@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:soleoserp/ui/res/localizations/app_localizations.dart';
 import 'package:soleoserp/ui/res/style_resources.dart';
-import 'package:soleoserp/ui/screens/DashBoard/home_screen.dart';
-import 'package:soleoserp/ui/screens/authentication/login_screen.dart';
-import 'package:soleoserp/ui/screens/authentication/registration_screen.dart';
 import 'package:soleoserp/ui/screens/DashBoard/Customer/CustomerAdd_Edit/customer_add_edit.dart';
+import 'package:soleoserp/ui/screens/DashBoard/Customer/CustomerAdd_Edit/search_city_screen.dart';
+import 'package:soleoserp/ui/screens/DashBoard/Customer/CustomerAdd_Edit/search_country_screen.dart';
+import 'package:soleoserp/ui/screens/DashBoard/Customer/CustomerAdd_Edit/search_state_screen.dart';
 import 'package:soleoserp/ui/screens/DashBoard/Customer/customer_list_screen.dart';
+import 'package:soleoserp/ui/screens/DashBoard/home_screen.dart';
 import 'package:soleoserp/ui/screens/DashBoard/inquiry/add_inquiry_product_screen.dart';
 import 'package:soleoserp/ui/screens/DashBoard/inquiry/customer_search/customer_search_screen.dart';
 import 'package:soleoserp/ui/screens/DashBoard/inquiry/inquiry_add_edit.dart';
@@ -14,6 +15,8 @@ import 'package:soleoserp/ui/screens/DashBoard/inquiry/inquiry_list_screen.dart'
 import 'package:soleoserp/ui/screens/DashBoard/inquiry/inquiry_product_list_screen.dart';
 import 'package:soleoserp/ui/screens/DashBoard/inquiry/search_inquiry_product_screen.dart';
 import 'package:soleoserp/ui/screens/DashBoard/inquiry/search_inquiry_screen.dart';
+import 'package:soleoserp/ui/screens/authentication/login_screen.dart';
+import 'package:soleoserp/ui/screens/authentication/registration_screen.dart';
 import 'package:soleoserp/utils/general_utils.dart';
 import 'package:soleoserp/utils/offline_db_helper.dart';
 import 'package:soleoserp/utils/shared_pref_helper.dart';
@@ -71,7 +74,15 @@ class MyApp extends StatefulWidget {
         return getMaterialPageRoute(SearchInquiryProductScreen());
       case SearchInquiryScreen.routeName:
         return getMaterialPageRoute(SearchInquiryScreen());
-      //SearchInquiryScreen
+
+      case SearchCountryScreen.routeName:
+        return getMaterialPageRoute(SearchCountryScreen(settings.arguments));
+
+      case SearchStateScreen.routeName:
+        return getMaterialPageRoute(SearchStateScreen(settings.arguments));
+      case SearchCityScreen.routeName:
+        return getMaterialPageRoute(SearchCityScreen(settings.arguments));
+      //
       default:
         return null;
     }
