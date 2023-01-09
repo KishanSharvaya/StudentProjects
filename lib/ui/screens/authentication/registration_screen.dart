@@ -229,6 +229,8 @@ class _RegistrationScreenState extends BaseState<RegistrationScreen>
                               count = _userNameController.text.length;
                             });
                           })),
+
+                  ///
                 ],
               ),
             ),
