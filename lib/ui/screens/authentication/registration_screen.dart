@@ -261,4 +261,6 @@ class _RegistrationScreenState extends BaseState<RegistrationScreen>
           positiveButtonTitle: "OK");
     }
   }
+
+  ///
 }
