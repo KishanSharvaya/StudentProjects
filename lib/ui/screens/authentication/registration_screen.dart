@@ -229,6 +229,8 @@ class _RegistrationScreenState extends BaseState<RegistrationScreen>
                               count = _userNameController.text.length;
                             });
                           })),
+
+                  ///
                 ],
               ),
             ),
@@ -266,4 +268,6 @@ class _RegistrationScreenState extends BaseState<RegistrationScreen>
           positiveButtonTitle: "OK");
     }
   }
+
+  ///
 }
